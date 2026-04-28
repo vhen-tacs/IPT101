@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPT 101 - Creators Portfolio</title>
     
-    <!-- Google Fonts -->
+    <-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* ================= NAVIGATION ================= */
+        /*NAVIGATION/
         nav {
             position: fixed;
             top: 0;
@@ -74,7 +74,7 @@
             color: var(--accent);
         }
 
-        /* ================= 3D COIN ANIMATIONS ================= */
+        /* coin spin */
         @keyframes flip {
             0% { transform: rotateY(0deg); }
             100% { transform: rotateY(360deg); }
@@ -128,7 +128,7 @@
             transform: rotateY(180deg);
         }
 
-        /* ================= CHATBOT STYLES ================= */
+        /*chatbot/
         #chatbot-toggle {
             position: fixed;
             bottom: 30px;
@@ -144,7 +144,7 @@
         #chatbot-toggle img {
             width: 85px;
             height: auto;
-            /* drop-shadow is better for transparent avatars than box-shadow */
+            /* avatar shadow */
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -252,7 +252,7 @@
             font-size: 0.9rem;
         }
 
-        /* ================= SECTIONS ================= */
+        /* sections */
         section {
             padding: 100px 20px;
             max-width: 1200px;
@@ -377,7 +377,7 @@
         </div>
     </nav>
 
-    <!-- CHATBOT COMPONENT (Floating 3D Character) -->
+    <!chatbot>
     <div id="chatbot-toggle">
         <div class="pulse-ring"></div>
         <img src="chatbot.png" alt="Assistant">
@@ -385,7 +385,7 @@
 
     <div id="chat-window">
         <div class="chat-header">
-            <!-- Miniature version for header -->
+            <!Miniature version for header>
             <img src="chatbot.png" alt="Assistant" class="w-10 h-10 object-contain">
             <div class="flex-1">
                 <p class="text-sm font-bold">Student Assistant</p>
@@ -410,7 +410,7 @@
         </div>
     </div>
 
-    <!-- HERO SECTION -->
+    <!intro>
     <header id="home">
         <h1 class="text-slate-900">Building <span class="text-indigo-600">Digital</span><br>Experiences.</h1>
         <p class="text-gray-500 mt-6 max-w-xl text-lg">We are IT students passionate about full-stack development and interactive UI design.</p>
@@ -420,7 +420,7 @@
         </div>
     </header>
 
-    <!-- PROJECTS SECTION -->
+    <!PROJECTS SECTION>
     <section id="projects">
         <h2 class="text-3xl font-bold text-center">Our Featured Projects</h2>
         <div class="projects-grid">
@@ -434,12 +434,12 @@
             </div>
             <div class="project-card">
                 <h3 class="text-indigo-600 font-bold text-xl mb-3">Interactive Portfolio</h3>
-                <p class="text-gray-500">The very site you are viewing, built with 3D CSS transforms and modern design principles.</p>
+                <p class="text-gray-500">Building interactive websites with 3D CSS transforms and modern design principles.</p>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT US SECTION -->
+    <! ABOUT US SECTION>
     <section id="about">
         <h2 class="text-3xl font-bold text-center mb-12">About the Creators</h2>
         <div class="creators-grid">
@@ -512,7 +512,7 @@
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!CONTACT SECTION>
     <section id="contact">
         <h2 class="text-3xl font-bold text-center">Get in Touch</h2>
         <form>
