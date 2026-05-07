@@ -1,568 +1,381 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPT 101 - Creators Portfolio</title>
+    <title>V&F | Creative Developers</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        brand: '#4f46e5',
+                        darkBg: '#050505',
+                        lightBg: '#FAFAFA',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        :root {
-            --bg: #F9FAFB;
-            --text: #1F2937;
-            --text-light: #4B5563;
-            --accent: #4f46e5;
-            --border: #E5E7EB;
-            --radius: 20px;
-            --transition: all 0.4s ease;
+        /* Base Smoothness & Custom Selection */
+        html { scroll-behavior: smooth; }
+        ::selection { background: #4f46e5; color: white; }
+        body { transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease; overflow-x: hidden; }
+
+        /* Subtle Noise Overlay for premium texture */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .dark .noise-overlay { opacity: 0.05; }
+
+        /* High-End Floating Pill Nav */
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        .dark .nav-pill {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-            scroll-behavior: smooth;
+        /* Luxury Line-Only Form Inputs */
+        .line-input {
+            width: 100%; bg: transparent; border: none; border-bottom: 2px solid rgba(156, 163, 175, 0.3);
+            padding: 15px 0; font-size: 1.1rem; transition: border-color 0.3s ease;
+            background: transparent; outline: none;
         }
+        .line-input:focus { border-bottom-color: #4f46e5; }
+        .dark .line-input { border-bottom-color: rgba(75, 85, 99, 0.5); color: white; }
+        .dark .line-input:focus { border-bottom-color: #4f46e5; }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+        /* Social Links */
+        .social-link { transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0.7; }
+        .social-link:hover { transform: translateY(-5px) scale(1.1); opacity: 1; filter: drop-shadow(0 5px 15px rgba(79,70,229,0.4)); }
 
-        /* ================= NAVIGATION ================= */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(249, 250, 251, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 50px;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(60px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-logo {
-            font-weight: 800;
-            font-size: 1.4rem;
-            color: var(--accent);
-            letter-spacing: -0.5px;
-        }
+        /* Chatbot Icon Glow */
+        #chatbot-toggle img { filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15)); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .dark #chatbot-toggle img { filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); }
+        #chatbot-toggle:hover img { transform: translateY(-10px) scale(1.08); filter: drop-shadow(0 25px 40px rgba(79, 70, 229, 0.5)); }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* ================= 3D COIN ANIMATIONS ================= */
-        @keyframes flip {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-200%) skewX(-30deg); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateX(200%) skewX(-30deg); opacity: 0; }
-        }
-
-        .coin-scene {
-            perspective: 1000px;
-        }
-
-        .coin {
-            width: 220px;
-            height: 220px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: flip 8s linear infinite;
-        }
-
-        .coin-side {
+        /* --- INDEPENDENT HERO IMAGES (Professional Layout) --- */
+        /* Shared base properties */
+        .hero-school, .hero-p1, .hero-p2 {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
-            background: white;
-        }
-
-        .reflection-layer {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.4) 55%, transparent);
-            width: 100%;
-            height: 100%;
-            z-index: 20;
-            animation: shine 4s ease-in-out infinite;
             pointer-events: none;
+            z-index: 0;
+            object-fit: contain;
         }
 
-        .coin-back {
-            background: #111;
-            transform: rotateY(180deg);
+       
+        /* --- STAGGERED FLEX GALLERY CARDS --- */
+        .proj-card { 
+            position: relative; border-radius: 1.5rem; overflow: hidden; 
+            background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
         }
+        .dark .proj-card { background: rgba(15,15,15,0.6); border-color: rgba(255,255,255,0.05); }
+        .proj-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(79,70,229,0.15); border-color: #4f46e5; }
+        .dark .proj-card:hover { box-shadow: 0 20px 40px rgba(79,70,229,0.3); }
 
-        /* ================= CHATBOT STYLES ================= */
-        #chatbot-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 2000;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #chatbot-toggle img {
-            width: 85px;
-            height: auto;
-            /* drop-shadow is better for transparent avatars than box-shadow */
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        #chatbot-toggle:hover img {
-            transform: translateY(-10px) scale(1.1);
-            filter: drop-shadow(0 20px 25px rgba(79, 70, 229, 0.3));
-        }
-
-        .pulse-ring {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent);
-            opacity: 0.2;
-            z-index: -1;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.4; }
-            100% { transform: scale(1.8); opacity: 0; }
-        }
-
-        #chat-window {
-            position: fixed;
-            bottom: 120px;
-            right: 30px;
-            width: 350px;
-            max-width: calc(100vw - 60px);
-            height: 500px;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .chat-header {
-            padding: 20px;
-            background: white;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: #FDFDFF;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .msg {
-            max-width: 80%;
-            padding: 10px 16px;
-            border-radius: 16px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .msg-bot {
-            background: #F3F4F6;
-            color: var(--text);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-
-        .msg-user {
-            background: var(--accent);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-
-        .chat-input {
-            padding: 15px;
-            background: white;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            border: none;
-            background: #F3F4F6;
-            padding: 10px 15px;
-            border-radius: 12px;
-            outline: none;
-            font-size: 0.9rem;
-        }
-
-        /* ================= SECTIONS ================= */
-        section {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: auto;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 0.8s ease all;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #eef2ff 0%, #f9fafb 100%);
-            padding: 0 20px;
-        }
-
-        header h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            margin-bottom: 200px;
-        }
-
-        .project-card {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-color: var(--accent);
-        }
-
-        .creators-grid {
-            display: flex;
-            justify-content: center;
-            gap: 80px;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-        .creator-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px; 
-        }
-        .social-links {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-        }
-        form {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: #fdfdfd;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: var(--accent);
-            color: white;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px;
-            background: #f3f4f6;
-            color: var(--text-light);
-        }
+        .proj-img-wrap { width: 100%; height: 260px; position: relative; overflow: hidden; background: #111; }
+        .proj-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .proj-card:hover .proj-num { transform: scale(1.1) translateY(-10px); color: rgba(255,255,255,0.8); text-shadow: 0 0 30px rgba(79,70,229,0.8); }
+        .proj-glow { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; }
+        .proj-card:hover .proj-glow { opacity: 1; }
     </style>
 </head>
-<body>
+<body class="bg-lightBg text-gray-900 dark:bg-darkBg dark:text-gray-100 antialiased">
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="nav-logo">VINCENT & FRANCIS</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#about">About Us</a>
-            <a href="#contact">Contact</a>
+    <div class="noise-overlay"></div>
+
+    <nav class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-auto">
+        <div class="nav-pill rounded-full px-8 py-3 flex items-center gap-8 text-sm font-medium tracking-wide">
+            <div class="font-heading font-black text-xl tracking-tighter mr-4">V<span class="text-brand">&</span>F</div>
+            <a href="#home" class="hover:text-brand transition-colors hidden md:block">Home</a>
+            <a href="#projects" class="hover:text-brand transition-colors hidden md:block">Work</a>
+            <a href="#creators" class="hover:text-brand transition-colors hidden md:block">Creators</a>
+            <a href="#contact" class="hover:text-brand transition-colors hidden md:block">Contact</a>
+            
+            <button id="theme-btn" class="ml-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                <svg id="icon-sun" class="w-4 h-4 text-yellow-500 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg id="icon-moon" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
         </div>
     </nav>
 
-    <!-- CHATBOT COMPONENT (Floating 3D Character) -->
-    <div id="chatbot-toggle">
-        <div class="pulse-ring"></div>
-        <img src="chatbot.png" alt="Assistant">
-    </div>
+    <header id="home" class="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden">
+        
 
-    <div id="chat-window">
-        <div class="chat-header">
-            <!-- Miniature version for header -->
-            <img src="chatbot.png" alt="Assistant" class="w-10 h-10 object-contain">
-            <div class="flex-1">
-                <p class="text-sm font-bold">Student Assistant</p>
-                <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest">Online</p>
+        <!-- Added relative & z-10 so the text stays strictly above the holograms -->
+        <div class="relative z-10">
+            <p class="text-brand font-medium tracking-[0.3em] uppercase text-sm mb-6 reveal">Creative Development Duo</p>
+            <h1 class="font-heading font-black text-[12vw] md:text-[8vw] leading-[0.9] tracking-tighter uppercase reveal" style="transition-delay: 0.1s;">
+                We craft <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-cyan-400">Digital</span><br>
+                Excellence.
+            </h1>
+            <div class="mt-12 flex flex-col md:flex-row gap-8 items-start md:items-center reveal" style="transition-delay: 0.2s;">
+                <p class="text-gray-500 dark:text-gray-400 max-w-md text-lg font-light leading-relaxed">
+                    Merging high-performance IT architecture with immersive, user-centric interface design.
+                </p>
+                <a href="#projects" class="group flex items-center gap-4 text-sm font-bold uppercase tracking-widest hover:text-brand transition-colors">
+                    Explore our work 
+                    <span class="w-12 h-[2px] bg-gray-900 dark:bg-white group-hover:bg-brand group-hover:w-16 transition-all"></span>
+                </a>
             </div>
-            <button id="close-chat" class="text-gray-400 hover:text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-        </div>
-        <div class="chat-messages" id="chat-msgs">
-            <div class="msg msg-bot">Hi! I'm your Samsonian student assistant. How can I help you today?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Type a message...">
-            <button id="chat-send" class="!w-10 !p-0 flex items-center justify-center rounded-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    <!-- HERO SECTION -->
-    <header id="home">
-        <h1 class="text-slate-900">Building <span class="text-indigo-600">Digital</span><br>Experiences.</h1>
-        <p class="text-gray-500 mt-6 max-w-xl text-lg">We are IT students passionate about full-stack development and interactive UI design.</p>
-        <div class="mt-10 flex gap-4">
-            <a href="#projects" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold hover:shadow-lg transition">View Projects</a>
-            <a href="#about" class="px-8 py-4 bg-white border border-slate-200 rounded-2xl font-semibold hover:bg-slate-50 transition">Meet Creators</a>
         </div>
     </header>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects">
-        <h2 class="text-3xl font-bold text-center">Our Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Student Portal System</h3>
-                <p class="text-gray-500">A comprehensive portal for managing enrollment and academic records efficiently.</p>
-            </div>
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Ticket Booking System</h3>
-                <p class="text-gray-500">Python-based automation for ticket generation and seat management with QR codes.</p>
-            </div>
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Interactive Website</h3>
-                <p class="text-gray-500">We build interactive websites with modern design according to the likeliness of the client. </p>
-            </div>
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Inventory Management System</h3>
-                <p class="text-gray-500"> A software application that is used to manage human resources employees and supply properties using PyQt6 with a centralized database of sqlite3.</p> 
-            </div>
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Video Editing</h3>
-                <p class="text-gray-500">Optimized video content using advanced editing techniques to enhance quality, engagement, and overall viewer impact.</p>   
-            </div>
-            <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Graphics Design</h3>
-                <p class="text-gray-500">Creating visually appealing graphics for various media platforms and marketing materials.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT US SECTION -->
-    <section id="about">
-        <h2 class="text-3xl font-bold text-center mb-12">About the Creators</h2>
-        <div class="creators-grid">
-            <!-- Vincent -->
-            <div class="creator-item">
-                <div class="coin-scene">
-                    <div class="coin">
-                        <div class="coin-side">
-                            <div class="reflection-layer"></div>
-                            <a href ="https://paradoxvhen.netlify.app/" target="_blank">
-                            <img src="vhen.jpg" alt="Vincent" class="object-cover w-full h-full" onerror="this.src='https://via.placeholder.com/300?text=Vincent'">
-                            </a>
-                        </div>
-                        <div class="coin-side coin-back">
-                            <a href="https://paradoxvhen.netlify.app/" target="_blank">
-                            <div class="reflection-layer" style="animation-delay: 2s;"></div>
-                            <img src="MDC LOGO copy.jpg" alt="MDC Logo" class="object-cover w-full h-full opacity-60" onerror="this.style.display='none'">
-                            </a>
+    <section id="projects" class="py-32 px-6 md:px-20 relative">
+        <h2 class="font-heading text-4xl md:text-5xl font-black mb-16 reveal">Featured Projects</h2>
+        
+        <!-- Staggered Flex Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 reveal">
+            
+            <!-- Project 1 (Pushed down slightly on desktop for editorial staggered look) -->
+            <div class="proj-card group md:mt-16 cursor-pointer">
+                <div class="proj-img-wrap">
+                    <div class="proj-glow" style="background: radial-gradient(circle at center, rgba(79,70,229,0.4) 0%, transparent 60%);"></div>
+                    <div class="proj-num font-heading text-7xl md:text-8xl font-black text-white/5 dark:text-white/5">01</div>
+                    <!-- Hover Reveal Button -->
+                    <div class="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                        <div class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold mt-6">Vincent Vhen A. Taculin</h3>
-                <p class="text-indigo-600 font-medium">Frontend Developer</p>
-                <p class="text-gray-500 mt-2 max-w-xs">Specializes in 3D CSS animations to create immersive user interfaces.</p>
+                <div class="p-8">
+                    <h3 class="font-heading text-2xl font-bold mb-3 group-hover:text-brand transition-colors">Student Portal System</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Comprehensive portal for managing enrollment and academic records with enterprise-grade flow.</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="proj-card group cursor-pointer">
+                <div class="proj-img-wrap">
+                    <div class="proj-glow" style="background: radial-gradient(circle at center, rgba(34,211,238,0.4) 0%, transparent 60%);"></div>
+                    <div class="proj-num font-heading text-7xl md:text-8xl font-black text-white/5 dark:text-white/5">02</div>
+                    <div class="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                        <div class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-heading text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">Graphics Design</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Professional graphic design services for branding, marketing, and digital content creation.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="proj-card group md:mt-16 cursor-pointer">
+                <div class="proj-img-wrap">
+                    <div class="proj-glow" style="background: radial-gradient(circle at center, rgba(168,85,247,0.4) 0%, transparent 60%);"></div>
+                    <div class="proj-num font-heading text-7xl md:text-8xl font-black text-white/5 dark:text-white/5">03</div>
+                    <div class="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                        <div class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-heading text-2xl font-bold mb-3 group-hover:text-purple-400 transition-colors">Interactive Web Development</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">A dynamic and responsive website built with modern web technologies.</p>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="proj-card group cursor-pointer">
+                <div class="proj-img-wrap">
+                    <div class="proj-glow" style="background: radial-gradient(circle at center, rgba(236,72,153,0.4) 0%, transparent 60%);"></div>
+                    <div class="proj-num font-heading text-7xl md:text-8xl font-black text-white/5 dark:text-white/5">04</div>
+                    <div class="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                        <div class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-heading text-2xl font-bold mb-3 group-hover:text-pink-400 transition-colors">Inventory Management System</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">PyQt6 GUI desktop application utilizing an SQLite3 central database for efficient inventory tracking.</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!--(Crossfade Effect) -->
+    <section id="creators" class="py-32 px-6 md:px-20 bg-gray-100 dark:bg-[#0a0a0a]">
+        <h2 class="font-heading text-4xl md:text-5xl font-black mb-24 text-center reveal">The Architects.</h2>
+
+        <div class="flex flex-col lg:flex-row justify-center gap-16 lg:gap-32 max-w-6xl mx-auto">
+            
+            <!-- Vincent Profile -->
+            <div class="flex flex-col items-center text-center reveal group w-full lg:w-1/2">
+                <!-- Luxury Crossfade Card -->
+                <div class="relative w-full aspect-[4/5] max-w-[320px] mx-auto rounded-[2.5rem] overflow-hidden bg-gray-900 shadow-xl mb-8 transition-all duration-700 transform group-hover:-translate-y-4 group-hover:shadow-[0_30px_60px_rgba(79,70,229,0.3)] border border-gray-200 dark:border-white/10 group-hover:border-brand/50 cursor-pointer">
+                    <!-- Image 2 (MDC Logo) -> Hidden by default, scales down & fades in on hover -->
+                    <img src="MDC LOGO copy.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-80 transition-all duration-700 scale-110 group-hover:scale-100" alt="MDC" onerror="this.style.display='none'">
+                    
+                    <!-- Image 1 (Vincent) -> Visible by default, fades out on hover -->
+                    <img src="vhen.jpg" alt="Vincent" class="absolute inset-0 w-full h-full object-cover z-10 transition-all duration-700 group-hover:opacity-0" onerror="this.src='https://via.placeholder.com/400x500?text=Vincent'">
+                    
+                    <!-- Persistent Premium Vignette Overlay -->
+                    <div class="absolute inset-0 z-20 shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] pointer-events-none"></div>
+                </div>
+
+                <h3 class="font-heading text-3xl font-black mb-2 transition-colors group-hover:text-brand">Vincent Vhen Taculin</h3>
+                <p class="text-brand font-bold tracking-widest text-xs uppercase mb-4">Frontend Engineer</p>
+                <p class="text-gray-500 dark:text-gray-400 max-w-sm text-sm font-light leading-relaxed">Specializing in fluid 3D CSS animations and engineering immersive digital environments.</p>
                 
-                <div class="social-links">
-                    <a href="https://www.instagram.com/paradox_vhen/" target="_blank">
-                        <img src="instagram.png" alt="Instagram" class="w-8 h-8">
-                    </a>
-                    <a href="https://www.facebook.com/vincent.taculin" target="_blank">
-                        <img src="facebook.png" alt="Facebook" class="w-8 h-8">
-                    </a>
-                    <a href="https://github.com/vhen-tacs" target="_blank">
-                        <img src="github.png" alt="GitHub" class="w-8 h-8">
-                    </a>
-                    <a href="https://www.linkedin.com/in/vincent-vhen-taculin-b75082406/" target="_blank">
-                        <img src="linkedin.png" alt="LinkedIn" class="w-8 h-8">
-                    </a>
-                    <a href="https://paradoxvhen.netlify.app/" target="_blank">
-                        <img src="link.png" alt="Vincent Portfolio" class="w-8 h-8">
+                <div class="flex gap-5 mt-8">
+                    <a href="https://github.com/vhen-tacs" target="_blank" class="social-link"><img src="github.png" alt="GitHub" class="w-5 h-5 dark:invert"></a>
+                    <a href="https://www.linkedin.com/in/vincent-vhen-taculin-b75082406/" target="_blank" class="social-link"><img src="linkedin.png" alt="LinkedIn" class="w-5 h-5"></a>
+                    <a href="https://www.instagram.com/paradox_vhen/" target="_blank" class="social-link"><img src="instagram.png" alt="Instagram" class="w-5 h-5 dark:invert"></a>
+                    
+                    <a href="https://www.facebook.com/paradox.vhen" target="_blank" class="social-link"><img src="facebook.png" alt="Facebook" class="w-5 h-5"></a>
+                    <a href="https://vhen-tacs.github.io/My-Portfolio/" target="_blank" class="social-link"><img src="link.png" alt="Portfolio" class="w-5 h-5 dark:invert"></a>
                 </div>
             </div>
 
-            <!-- Francis -->
-            <div class="creator-item">
-                <div class="coin-scene">
-                    <div class="coin">
-                        <div class="coin-side">
-                            <div class="reflection-layer"></div>
-                            <a href ="https://francisporfolio.netlify.app/" target="_blank">
-                            <img src="francis.jpg" alt="francis" class="object-cover w-full h-full" onerror="this.src='https://via.placeholder.com/300?text=Francis'">
-                            </a>
-                        </div>
-                        <div class="coin-side coin-back">
-                            <a href="https://francisporfolio.netlify.app/" target="_blank">
-                            <div class="reflection-layer" style="animation-delay: 2s;"></div>
-                            <img src="francis2.jpg" alt="MDC Logo" class="object-cover w-full h-full opacity-60" onerror="this.style.display='none'">
-                            </a>
-                        </div>
-                    </div>
+            <!-- Francis Profile -->
+            <div class="flex flex-col items-center text-center reveal group w-full lg:w-1/2" style="transition-delay: 0.2s;">
+                <!-- Crossfade Card -->
+                <div class="relative w-full aspect-[4/5] max-w-[320px] mx-auto rounded-[2.5rem] overflow-hidden bg-gray-900 shadow-xl mb-8 transition-all duration-700 transform group-hover:-translate-y-4 group-hover:shadow-[0_30px_60px_rgba(79,70,229,0.3)] border border-gray-200 dark:border-white/10 group-hover:border-brand/50 cursor-pointer">
+                    <!-- Image 2 (Francis Alternate) -->
+                    <img src="francis2.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-80 transition-all duration-700 scale-110 group-hover:scale-100" alt="Alternate" onerror="this.style.display='none'">
+                    
+                    <!-- Image 1 (Francis) -->
+                    <img src="francis.jpg" alt="Francis" class="absolute inset-0 w-full h-full object-cover z-10 transition-all duration-700 group-hover:opacity-0" onerror="this.src='https://via.placeholder.com/400x500?text=Francis'">
+                    
+                    <div class="absolute inset-0 z-20 shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] pointer-events-none"></div>
                 </div>
-                <h3 class="text-2xl font-bold mt-6">Francis John Sibulan</h3>
-                <p class="text-indigo-600 font-medium">UI/UX Designer</p>
-                <p class="text-gray-500 mt-2 max-w-xs">Focuses on user-centric design and system efficiency through clean, maintainable code.</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/frnz.sbln" target="_blank">
-                        <img src="instagram.png" alt="Instagram" class="w-8 h-8">
-                    </a>
-                    <a href="https://www.facebook.com/sibulanfrancis" target="_blank">
-                        <img src="facebook.png" alt="Facebook" class="w-8 h-8">
-                    </a>
-                    <a href="https://www.upwork.com/freelancers/~0180c9d6ee6f555d6e" target="_blank">
-                        <img src="upwork.png" alt="Upwork" class="w-8 h-8">
-                    </a>
-                    <a href="http://linkedin.com/in/francis-john-sibulan-760484406/" target="_blank">
-                        <img src="linkedin.png" alt="LinkedIn" class="w-8 h-8">
-                    </a>
-                    <a href="https://francisporfolio.netlify.app/" target="_blank">
-                        <img src="link.png" alt="Francis Portfolio" class="w-8 h-8">
-                    </a>
+
+                <h3 class="font-heading text-3xl font-black mb-2 transition-colors group-hover:text-brand">Francis John Sibulan</h3>
+                <p class="text-brand font-bold tracking-widest text-xs uppercase mb-4">UI/UX Designer</p>
+                <p class="text-gray-500 dark:text-gray-400 max-w-sm text-sm font-light leading-relaxed">Focused on minimalist, user-centric interfaces backed by highly maintainable code architecture.</p>
+                
+                <div class="flex gap-5 mt-8">
+                    <a href="https://www.upwork.com/freelancers/~0180c9d6ee6f555d6e" target="_blank" class="social-link"><img src="upwork.png" alt="Upwork" class="w-5 h-5 dark:invert"></a>
+                    <a href="http://linkedin.com/in/francis-john-sibulan-760484406/" target="_blank" class="social-link"><img src="linkedin.png" alt="LinkedIn" class="w-5 h-5"></a>
+                    <a href="https://www.instagram.com/frnz.sbln" target="_blank" class="social-link"><img src="instagram.png" alt="Instagram" class="w-5 h-5 dark:invert"></a>
+                    <a href="https://www.facebook.com/sibulanfrancis" target="_blank" class="social-link"><img src="facebook.png" alt="Facebook" class="w-5 h-5"></a>
+                    <a href="https://francisporfolio.netlify.app/" target="_blank" class="social-link"><img src="link.png" alt="Portfolio" class="w-5 h-5 dark:invert"></a>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact">
-        <h2 class="text-3xl font-bold text-center">Get in Touch</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+    <section id="contact" class="py-32 px-6 md:px-20 max-w-4xl mx-auto reveal">
+        <h2 class="font-heading text-4xl md:text-5xl font-black mb-4">Let's Talk.</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-16 text-lg font-light">Ready to engineer something extraordinary?</p>
+        
+        <form class="flex flex-col gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <input type="text" placeholder="Your Name" required class="line-input">
+                <input type="email" placeholder="Email Address" required class="line-input">
+            </div>
+            <input type="text" placeholder="Request Project or Inquiry" required class="line-input pb-12">
+            
+            <button type="submit" class="self-start mt-6 group flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand hover:text-indigo-400 transition-colors">
+                Send Request 
+                <span class="w-12 h-[2px] bg-brand group-hover:w-20 transition-all"></span>
+            </button>
         </form>
     </section>
 
-    <footer>
-        <p>© 2025 Vincent Vhen & Francis. All rights reserved.</p>
+    <div id="chatbot-toggle" class="fixed bottom-10 right-10 z-[2000] cursor-pointer">
+        <img src="chatbot.png" alt="Assistant" class="w-20 md:w-24 h-auto relative z-10">
+    </div>
+
+    <div id="chat-window" class="fixed bottom-[130px] right-10 w-[350px] max-w-[calc(100vw-40px)] h-[500px] bg-white/90 dark:bg-[#111]/90 backdrop-blur-xl border border-gray-200 dark:border-gray-800 rounded-3xl z-[2000] hidden flex-col overflow-hidden shadow-2xl transition-all duration-300 transform translate-y-4 opacity-0" style="transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+        
+        <div class="p-5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-transparent">
+            <div class="flex items-center gap-3">
+                <img src="chatbot.png" alt="Assistant" class="w-8 h-8 object-contain">
+                <div>
+                    <p class="text-sm font-bold font-heading tracking-wide">V&F Assistant</p>
+                    <p class="text-[9px] text-brand font-bold uppercase tracking-[0.2em]">Active</p>
+                </div>
+            </div>
+            <button id="close-chat" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4" id="chat-msgs">
+            <div class="max-w-[85%] p-3.5 rounded-2xl rounded-tl-sm text-[13px] leading-relaxed bg-gray-100 dark:bg-gray-900 dark:text-gray-300 self-start">
+                Good day! I am your V&F System Assistant. I can provide information about our creators, projects, or help navigate the portfolio. Ask me anything!
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-100 dark:border-gray-800 bg-transparent flex gap-3">
+            <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-1 bg-gray-100 dark:bg-gray-900 border-none dark:text-white px-4 py-3 rounded-2xl text-[13px] outline-none">
+            <button id="chat-send" class="w-11 h-11 flex items-center justify-center bg-brand text-white rounded-2xl hover:bg-indigo-500 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <footer class="text-center py-12 border-t border-gray-200 dark:border-gray-900">
+        <p class="text-gray-400 text-xs font-light tracking-widest uppercase">© 2026 Vincent Vhen A. Taculin. Engineered in Davao.</p>
     </footer>
 
     <script>
-        // Scroll Animation Observer
-        const sections = document.querySelectorAll('section');
-        const observerOptions = { threshold: 0.1 };
+        // --- THEME TOGGLE LOGIC ---
+        const themeBtn = document.getElementById('theme-btn');
+        const iconSun = document.getElementById('icon-sun');
+        const iconMoon = document.getElementById('icon-moon');
+        const htmlNode = document.documentElement;
+
+        function updateIcons() {
+            if (htmlNode.classList.contains('dark')) {
+                iconSun.classList.remove('hidden'); iconMoon.classList.add('hidden');
+            } else {
+                iconMoon.classList.remove('hidden'); iconSun.classList.add('hidden');
+            }
+        }
+        updateIcons(); // Initial load
+
+        themeBtn.addEventListener('click', () => {
+            htmlNode.classList.toggle('dark');
+            updateIcons();
+        });
+
+        // --- SCROLL REVEAL ANIMATIONS ---
+        const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        }, observerOptions);
-        sections.forEach(section => observer.observe(section));
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        reveals.forEach(el => observer.observe(el));
 
-        // CHATBOT LOGIC
+        // --- CHATBOT WIDGET LOGIC ---
         const toggle = document.getElementById('chatbot-toggle');
         const chatWindow = document.getElementById('chat-window');
         const close = document.getElementById('close-chat');
@@ -570,17 +383,37 @@
         const send = document.getElementById('chat-send');
         const chatMsgs = document.getElementById('chat-msgs');
 
-        toggle.addEventListener('click', () => {
-            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-        });
+        function openChat() {
+            chatWindow.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before animating opacity/transform
+            setTimeout(() => {
+                chatWindow.style.opacity = '1';
+                chatWindow.style.transform = 'translateY(0)';
+            }, 10);
+        }
 
-        close.addEventListener('click', () => {
-            chatWindow.style.display = 'none';
+        function closeChat() {
+            chatWindow.style.opacity = '0';
+            chatWindow.style.transform = 'translateY(16px)';
+            setTimeout(() => { chatWindow.style.display = 'none'; }, 400); // Wait for CSS transition
+        }
+
+        toggle.addEventListener('click', () => {
+            if (chatWindow.style.display === 'flex') closeChat();
+            else openChat();
         });
+        close.addEventListener('click', closeChat);
 
         function addMsg(text, type) {
             const div = document.createElement('div');
-            div.className = `msg msg-${type}`;
+            const baseClass = "max-w-[85%] p-3.5 rounded-2xl text-[13px] leading-relaxed ";
+            
+            if (type === 'user') {
+                div.className = baseClass + "rounded-tr-sm bg-brand text-white self-end";
+            } else {
+                div.className = baseClass + "rounded-tl-sm bg-gray-100 dark:bg-gray-900 dark:text-gray-300 self-start";
+            }
+            
             div.textContent = text;
             chatMsgs.appendChild(div);
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
@@ -593,21 +426,19 @@
             input.value = '';
 
             setTimeout(() => {
-                let response = "I'm here to help! Feel free to ask about Vincent, Francis, or our projects.";
+                let response = "I'm here to assist! Ask me about our creators, projects, or anything else related to our portfolio.";
                 const lower = val.toLowerCase();
-                if (lower.includes('vincent')) response = "Vincent is a Frontend Developer specializing in 3D CSS and React!";
-                else if (lower.includes('francis')) response = "Francis is a UI/UX Designer who focuses on clean code and user experience.";
-                else if (lower.includes('project')) response = "We've worked on Student Portals, Booking Systems, and this very portfolio!";
-                else if (lower.includes('hi') || lower.includes('hello')) response = "Hello fellow Samsonian! How can I assist you?";
+                if (lower.includes('vincent')) response = "Vincent engineers our frontend systems, specializing in immersive 3D CSS integrations.";
+                else if (lower.includes('francis')) response = "Francis leads UI/UX architecture, ensuring minimalist and functional design patterns.";
+                else if (lower.includes('project') || lower.includes('work')) response = "Our portfolio includes enterprise Student Portals, Graphics Designs, Interactive Websites, and Inventory Management GUIs.";
+                else if (lower.includes('hi') || lower.includes('hello')) response = "Greetings. How may I assist your navigation today?";
                 
                 addMsg(response, 'bot');
-            }, 800);
+            }, 700);
         }
 
         send.addEventListener('click', handleSend);
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSend();
-        });
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
     </script>
 </body>
 </html>
