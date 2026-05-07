@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /*NAVIGATION*/
+        /* ================= NAVIGATION ================= */
         nav {
             position: fixed;
             top: 0;
@@ -74,7 +74,7 @@
             color: var(--accent);
         }
 
-        /* coin spin */
+        /* ================= 3D COIN ANIMATIONS ================= */
         @keyframes flip {
             0% { transform: rotateY(0deg); }
             100% { transform: rotateY(360deg); }
@@ -128,7 +128,7 @@
             transform: rotateY(180deg);
         }
 
-        /*chatbot*/
+        /* ================= CHATBOT STYLES ================= */
         #chatbot-toggle {
             position: fixed;
             bottom: 30px;
@@ -144,7 +144,7 @@
         #chatbot-toggle img {
             width: 85px;
             height: auto;
-            /* avatar shadow */
+            /* drop-shadow is better for transparent avatars than box-shadow */
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -252,7 +252,7 @@
             font-size: 0.9rem;
         }
 
-        /* sections */
+        /* ================= SECTIONS ================= */
         section {
             padding: 100px 20px;
             max-width: 1200px;
@@ -327,7 +327,6 @@
             display: flex;
             gap: 15px;
         }
-
         form {
             max-width: 600px;
             margin: 50px auto;
@@ -377,7 +376,7 @@
         </div>
     </nav>
 
-    <!chatbot>
+    <!-- CHATBOT COMPONENT (Floating 3D Character) -->
     <div id="chatbot-toggle">
         <div class="pulse-ring"></div>
         <img src="chatbot.png" alt="Assistant">
@@ -385,7 +384,7 @@
 
     <div id="chat-window">
         <div class="chat-header">
-            <!Miniature version for header>
+            <!-- Miniature version for header -->
             <img src="chatbot.png" alt="Assistant" class="w-10 h-10 object-contain">
             <div class="flex-1">
                 <p class="text-sm font-bold">Student Assistant</p>
@@ -410,7 +409,7 @@
         </div>
     </div>
 
-    <!intro>
+    <!-- HERO SECTION -->
     <header id="home">
         <h1 class="text-slate-900">Building <span class="text-indigo-600">Digital</span><br>Experiences.</h1>
         <p class="text-gray-500 mt-6 max-w-xl text-lg">We are IT students passionate about full-stack development and interactive UI design.</p>
@@ -420,7 +419,7 @@
         </div>
     </header>
 
-    <!PROJECTS SECTION>
+    <!-- PROJECTS SECTION -->
     <section id="projects">
         <h2 class="text-3xl font-bold text-center">Our Featured Projects</h2>
         <div class="projects-grid">
@@ -433,13 +432,25 @@
                 <p class="text-gray-500">Python-based automation for ticket generation and seat management with QR codes.</p>
             </div>
             <div class="project-card">
-                <h3 class="text-indigo-600 font-bold text-xl mb-3">Interactive Portfolio</h3>
-                <p class="text-gray-500">Building interactive websites with 3D CSS transforms and modern design principles.</p>
+                <h3 class="text-indigo-600 font-bold text-xl mb-3">Interactive Website</h3>
+                <p class="text-gray-500">We build interactive websites with modern design according to the likeliness of the client. </p>
+            </div>
+            <div class="project-card">
+                <h3 class="text-indigo-600 font-bold text-xl mb-3">Inventory Management System</h3>
+                <p class="text-gray-500"> A software application that is used to manage human resources employees and supply properties using PyQt6 with a centralized database of sqlite3.</p> 
+            </div>
+            <div class="project-card">
+                <h3 class="text-indigo-600 font-bold text-xl mb-3">Video Editing</h3>
+                <p class="text-gray-500">Optimized video content using advanced editing techniques to enhance quality, engagement, and overall viewer impact.</p>   
+            </div>
+            <div class="project-card">
+                <h3 class="text-indigo-600 font-bold text-xl mb-3">Graphics Design</h3>
+                <p class="text-gray-500">Creating visually appealing graphics for various media platforms and marketing materials.</p>
             </div>
         </div>
     </section>
 
-    <! ABOUT US SECTION>
+    <!-- ABOUT US SECTION -->
     <section id="about">
         <h2 class="text-3xl font-bold text-center mb-12">About the Creators</h2>
         <div class="creators-grid">
@@ -449,11 +460,15 @@
                     <div class="coin">
                         <div class="coin-side">
                             <div class="reflection-layer"></div>
+                            <a href ="https://paradoxvhen.netlify.app/" target="_blank">
                             <img src="vhen.jpg" alt="Vincent" class="object-cover w-full h-full" onerror="this.src='https://via.placeholder.com/300?text=Vincent'">
+                            </a>
                         </div>
                         <div class="coin-side coin-back">
+                            <a href="https://paradoxvhen.netlify.app/" target="_blank">
                             <div class="reflection-layer" style="animation-delay: 2s;"></div>
                             <img src="MDC LOGO copy.jpg" alt="MDC Logo" class="object-cover w-full h-full opacity-60" onerror="this.style.display='none'">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -474,20 +489,26 @@
                     <a href="https://www.linkedin.com/in/vincent-vhen-taculin-b75082406/" target="_blank">
                         <img src="linkedin.png" alt="LinkedIn" class="w-8 h-8">
                     </a>
+                    <a href="https://paradoxvhen.netlify.app/" target="_blank">
+                        <img src="link.png" alt="Vincent Portfolio" class="w-8 h-8">
                 </div>
             </div>
 
             <!-- Francis -->
             <div class="creator-item">
                 <div class="coin-scene">
-                    <div class="coin" style="animation-delay: -4s;">
+                    <div class="coin">
                         <div class="coin-side">
                             <div class="reflection-layer"></div>
-                            <img src="francis.jpg" alt="Francis" class="object-cover w-full h-full" onerror="this.src='https://via.placeholder.com/300?text=Francis'">
+                            <a href ="https://francisporfolio.netlify.app/" target="_blank">
+                            <img src="francis.jpg" alt="francis" class="object-cover w-full h-full" onerror="this.src='https://via.placeholder.com/300?text=Francis'">
+                            </a>
                         </div>
                         <div class="coin-side coin-back">
+                            <a href="https://francisporfolio.netlify.app/" target="_blank">
+                            <div class="reflection-layer" style="animation-delay: 2s;"></div>
                             <img src="francis2.jpg" alt="MDC Logo" class="object-cover w-full h-full opacity-60" onerror="this.style.display='none'">
-                            <div class="reflection-layer" style="animation-delay: 0s;"></div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -507,12 +528,15 @@
                     <a href="http://linkedin.com/in/francis-john-sibulan-760484406/" target="_blank">
                         <img src="linkedin.png" alt="LinkedIn" class="w-8 h-8">
                     </a>
+                    <a href="https://francisporfolio.netlify.app/" target="_blank">
+                        <img src="link.png" alt="Francis Portfolio" class="w-8 h-8">
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!CONTACT SECTION>
+    <!-- CONTACT SECTION -->
     <section id="contact">
         <h2 class="text-3xl font-bold text-center">Get in Touch</h2>
         <form>
